@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/adeindra6/BookWebsite/pkg/config"
-	"github.com/adeindra6/BookWebsite/pkg/handlers"
+	"github.com/adeindra6/BookWebsite/internal/config"
+	"github.com/adeindra6/BookWebsite/internal/handlers"
 	"github.com/bmizerany/pat"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -23,7 +23,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/majors-suite", handlers.Repo.Majors)
 	mux.Get("/search-availability", handlers.Repo.Availability)
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
-	mux.Get("/search-availability-json", handlers.Repo.AvailabilityJSON)
+	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 	mux.Get("/contact", handlers.Repo.Contact)
 
 	mux.Get("/make-reservation", handlers.Repo.Reservation)

@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/adeindra6/BookWebsite/pkg/config"
-	"github.com/adeindra6/BookWebsite/pkg/models"
-	"github.com/adeindra6/BookWebsite/pkg/render"
+	"github.com/adeindra6/BookWebsite/internal/config"
+	"github.com/adeindra6/BookWebsite/internal/models"
+	"github.com/adeindra6/BookWebsite/internal/render"
 )
 
 var Repo *Repository

@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/adeindra6/BookWebsite/pkg/config"
-	"github.com/adeindra6/BookWebsite/pkg/handlers"
-	"github.com/adeindra6/BookWebsite/pkg/render"
+	"github.com/adeindra6/BookWebsite/internal/config"
+	"github.com/adeindra6/BookWebsite/internal/handlers"
+	"github.com/adeindra6/BookWebsite/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
 
