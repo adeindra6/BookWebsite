@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/adeindra6/BookWebsite/internal/forms"
+)
+
 type TemplateData struct {
 	StringMap map[string]string
 	IntMap    map[string]int
@@ -9,4 +13,5 @@ type TemplateData struct {
 	Flash     string
 	Warning   string
 	Error     string
+	Form      *forms.Form
 }
