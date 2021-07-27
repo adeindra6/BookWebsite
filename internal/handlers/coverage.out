@@ -1,0 +1,22 @@
+mode: set
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:21.47,25.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:27.33,29.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:31.67,41.2 5 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:43.68,52.2 4 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:54.74,63.2 4 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:65.78,67.16 2 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:72.2,85.19 6 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:96.2,98.66 2 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:67.16,70.3 2 0
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:85.19,94.3 4 0
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:101.71,103.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:105.69,107.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:109.75,111.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:113.79,118.2 3 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:125.79,132.16 3 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:136.2,137.14 2 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:132.16,134.3 1 0
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:140.70,142.2 1 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:144.81,146.9 2 1
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:153.2,160.4 4 0
+github.com/adeindra6/BookWebsite/internal/handlers/handlers.go:146.9,151.3 4 1
