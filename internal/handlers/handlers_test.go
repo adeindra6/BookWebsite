@@ -31,23 +31,14 @@ var theTests = []struct {
 	{"majors-suite", "/majors-suite", "GET", http.StatusOK},
 	{"search-availability", "/search-availability", "GET", http.StatusOK},
 	{"contact", "/contact", "GET", http.StatusOK},
-
-	/*
-		{"post-search-availability", "/search-availability", "POST", []postData{
-			{key: "start", value: "2020-07-23"},
-			{key: "end", value: "2021-07-23"},
-		}, http.StatusOK},
-		{"post-search-availability-json", "/search-availability-json", "POST", []postData{
-			{key: "start", value: "2020-07-23"},
-			{key: "end", value: "2021-07-23"},
-		}, http.StatusOK},
-		{"make reservation post", "/make-reservation", "POST", []postData{
-			{key: "first_name", value: "Rabbid"},
-			{key: "last_name", value: "Bwabwa"},
-			{key: "email", value: "rabbid@gmail.com"},
-			{key: "phone", value: "12345"},
-		}, http.StatusOK},
-	*/
+	{"non-existent", "/green/eggs/and/beef", "GET", http.StatusNotFound},
+	// new routes
+	{"login", "/user/login", "GET", http.StatusOK},
+	{"logout", "/user/logout", "GET", http.StatusOK},
+	{"dashboard", "/admin/dashboard", "GET", http.StatusOK},
+	{"new res", "/admin/reservations-new", "GET", http.StatusOK},
+	{"all res", "/admin/reservations-all", "GET", http.StatusOK},
+	{"show res", "/admin/reservations/new/1/show", "GET", http.StatusOK},
 }
 
 func TestHandlers(t *testing.T) {
@@ -255,8 +246,8 @@ func TestRepository_PostReservation(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	if rr.Code != http.StatusSeeOther {
-		t.Errorf("PostReservation handler returned wrong response code for invalid room id: got %d, wanted %d", rr.Code, http.StatusSeeOther)
+	if rr.Code != http.StatusOK {
+		t.Errorf("PostReservation handler returned wrong response code for invalid room id: got %d, wanted %d", rr.Code, http.StatusOK)
 	}
 
 	// test for failure to insert reservation into database
@@ -338,6 +329,80 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 	}
 }
 
+var loginTests = []struct {
+	name string
+	email string
+	expectedStatusCode int
+	expectedHTML string
+	expectedLocation string
+}{
+	{
+		"valid-credentials",
+		"ade@gmail.com",
+		http.StatusSeeOther,
+		"",
+		"/",
+	},
+	{
+		"invalid-credentials",
+		"rabbid@gmail.com",
+		http.StatusSeeOther,
+		"",
+		"/user/login",
+	},
+	{
+		"invalid-data",
+		"r0cky",
+		http.StatusOK,
+		`action="/user/login"`,
+		"",
+	},
+}
+
+func TestLogin(t *testing.T) {
+	// range through all tests
+	for _, e := range loginTests {
+		postedData := url.Values{}
+		postedData.Add("email", e.email)
+		postedData.Add("password", "adeindra")
+
+		// create request
+		req, _ := http.NewRequest("POST", "/user/login", strings.NewReader(postedData.Encode()))
+		ctx := getCtx(req)
+		req = req.WithContext(ctx)
+
+		// set the header
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		rr := httptest.NewRecorder()
+
+		// call the handler
+		handler := http.HandlerFunc(Repo.PostShowLogin)
+		handler.ServeHTTP(rr, req)
+
+		if rr.Code != e.expectedStatusCode {
+			t.Errorf("failed %s: expected code %d, but got %d", e.name, e.expectedStatusCode, rr.Code)
+		}
+
+		if e.expectedLocation != "" {
+			// get the URL from test
+			actualLoc, _ := rr.Result().Location()
+			if actualLoc.String() != e.expectedLocation {
+				t.Errorf("failed %s: expected location %s, but got location %s", e.name, e.expectedLocation, actualLoc.String())
+			}
+		}
+
+		// checking for expected values in HTML
+		if e.expectedHTML != "" {
+			// read the response body into a string
+			html := rr.Body.String()
+			if !strings.Contains(html, e.expectedHTML) {
+				t.Errorf("failed %s: expected to find %s but did not", e.name, e.expectedHTML)
+			}
+		}
+	}
+}
+
+// gets the context
 func getCtx(req *http.Request) context.Context {
 	ctx, err := session.Load(req.Context(), req.Header.Get("X-Session"))
 	if err != nil {
